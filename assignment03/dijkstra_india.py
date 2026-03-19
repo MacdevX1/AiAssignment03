@@ -1,5 +1,6 @@
 import csv
 import heapq
+import os
 from collections import defaultdict
 
 class Graph:
@@ -12,8 +13,10 @@ class Graph:
         self.graph[v].append((u, weight))
 
     def load_from_csv(self, filename):
-        with open(filename, 'r') as file:
-            reader = csv.DictReader(file)
+        base_dir = os.path.dirname(__file__)
+        path = os.path.join(base_dir, filename)
+        with open(path, 'r', newline='') as file:
+            reader = csv.DictReader(file, delimiter='\t')
             for row in reader:
                 u = row['Origin']
                 v = row['Destination']
